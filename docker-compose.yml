@@ -1,0 +1,143 @@
+services:
+  # Nginx - 反向代理
+  nginx:
+    image: nginx:latest
+    ports:
+      - "20080:80"
+      - "20443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - user-frontend
+      - admin-frontend
+      - user-backend
+      - admin-backend
+    networks:
+      - frontend-network
+      - backend-network
+    restart: always
+
+  # 用户前端 - Nuxt 3
+  user-frontend:
+    build:
+      context: ./frontend/user
+    volumes:
+      - ./frontend/user:/app
+      - /app/node_modules
+    ports:
+      - "23000:3000"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - frontend-network
+    restart: always
+
+  # 管理员前端 - Nuxt 3
+  admin-frontend:
+    build:
+      context: ./frontend/admin
+    volumes:
+      - ./frontend/admin:/app
+      - /app/node_modules
+    ports:
+      - "23001:3000"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - frontend-network
+    restart: always
+
+  # 用户后端 - Express
+  user-backend:
+    build:
+      context: ./backend/user
+    volumes:
+      - ./backend/user:/app
+      - /app/node_modules
+    ports:
+      - "24000:4000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/user_db
+      - REDIS_URL=redis://redis:6379
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
+    networks:
+      - backend-network
+    restart: always
+
+  # 管理员后端 - Express
+  admin-backend:
+    build:
+      context: ./backend/admin
+    volumes:
+      - ./backend/admin:/app
+      - /app/node_modules
+    ports:
+      - "24001:4000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/admin_db
+      - REDIS_URL=redis://redis:6379
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
+    networks:
+      - backend-network
+    restart: always
+
+  # PostgreSQL - 主数据库
+  postgres:
+    image: postgres:latest
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    ports:
+      - "25432:5432"  # 使用更高的端口号，避免权限问题
+    networks:
+      - backend-network
+    restart: always
+
+  # Redis - 缓存
+  redis:
+    image: redis:latest
+    volumes:
+      - redis-data:/data
+      - ./cache/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "26379:6379"  # 使用更高的端口号，避免权限问题
+    networks:
+      - backend-network
+    restart: always
+
+  # RabbitMQ - 消息队列
+  rabbitmq:
+    image: rabbitmq:3-management
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    ports:
+      - "25672:5672"  # 使用更高的端口号，避免权限问题
+      - "25673:15672"  # 使用更高的端口号，避免权限问题
+    networks:
+      - backend-network
+    restart: always
+
+networks:
+  frontend-network:
+    driver: bridge
+  backend-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  redis-data:
+  rabbitmq-data:

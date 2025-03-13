@@ -1,0 +1,28 @@
+{
+  "name": "user-backend",
+  "version": "1.0.0",
+  "description": "用户后端API服务",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "helmet": "^7.0.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.11.3",
+    "sequelize": "^6.33.0",
+    "redis": "^4.6.10",
+    "amqplib": "^0.10.3",
+    "jsonwebtoken": "^9.0.2",
+    "bcrypt": "^5.1.1",
+    "joi": "^17.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
