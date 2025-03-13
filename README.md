@@ -51,8 +51,8 @@
 1. 克隆仓库：
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/zb2947244682/NuxtPressKit
+cd NuxtPressKit
 ```
 
 2. 启动所有服务：
