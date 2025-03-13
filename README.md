@@ -29,7 +29,7 @@
 
 ## 技术栈
 
-- **前端**：Nuxt 3 (Vue 3 + TypeScript)
+- **前端**：Nuxt 3 (Vue 3 + JavaScript)
 - **后端**：Express (Node.js)
 - **数据库**：PostgreSQL
 - **缓存**：Redis
@@ -63,10 +63,10 @@ docker-compose up -d
 
 3. 访问应用：
 
-- 用户前端：http://localhost:80
-- 管理员前端：http://localhost:80/admin
-- 用户API：http://localhost:80/api/user
-- 管理员API：http://localhost:80/api/admin
+- 用户前端：http://localhost:20080
+- 管理员前端：http://localhost:20080/admin
+- 用户API：http://localhost:24000/api/user
+- 管理员API：http://localhost:24001/api/admin
 
 ### 开发模式
 
