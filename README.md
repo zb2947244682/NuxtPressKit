@@ -1,8 +1,8 @@
-# 企业级应用架构
+# 🚀 企业级应用架构
 
 这是一个基于现代技术栈的企业级应用架构，包含前端、后端、数据库和各种中间件服务。
 
-## 项目结构
+## 📁 项目结构
 
 ```
 .
@@ -27,7 +27,7 @@
 └── docker-compose.yml      # Docker Compose配置文件
 ```
 
-## 技术栈
+## 🛠️ 技术栈
 
 - **前端**：Nuxt 3 (Vue 3 + JavaScript)
 - **后端**：Express (Node.js)
@@ -38,7 +38,7 @@
 - **API网关**：Kong/Tyk
 - **容器化**：Docker + Docker Compose
 
-## 快速开始
+## ⚡ 快速开始
 
 ### 前提条件
 
@@ -46,7 +46,7 @@
 - Node.js 18+
 - npm 或 yarn
 
-### 安装和运行
+### 📦 安装和运行
 
 1. 克隆仓库：
 
@@ -68,7 +68,7 @@ docker-compose up -d
 - 用户API：http://localhost:24000/api/user
 - 管理员API：http://localhost:24001/api/admin
 
-### 开发模式
+### 🧑‍💻 开发模式
 
 如果你想在开发模式下运行前端应用：
 
@@ -98,7 +98,7 @@ npm install
 npm run dev
 ```
 
-## 部署
+## 🚀 部署
 
 项目使用Docker Compose进行部署，可以轻松部署到任何支持Docker的环境中。
 
@@ -113,10 +113,10 @@ docker-compose logs -f
 docker-compose down
 ```
 
-## 扩展
+## 🔄 扩展
 
 该架构设计为可扩展的，你可以根据需要添加更多的服务或中间件。
 
-## 许可证
+## 📜 许可证
 
 [MIT](LICENSE)
